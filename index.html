@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حسابداری (دمو)</title>
+<meta name="description" content="دموی طراحی جدید برنامه حسابداری">
+<meta name="theme-color" content="#0C6E4F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="حسابداری">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/mmdgk123/hesabdari-gk/4fa7630a556767d97fef13b753740775d49e8645/apple-touch-icon-180.png">
+<link rel="manifest" href="./manifest.json">
+<script>try{document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}catch(e){}</script>
+<style>html,body{margin:0;padding:0}body{background:#EFE9DC}html[data-theme="dark"] body{background:#0E0B08}</style>
+</head>
+<body>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap');
+.demowrap, .demowrap * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+.demowrap {
+  --paper: #FAF8F3; --ink: #1C1813; --muted: #8A8071; --line: #E9E1D2;
+  --accent: #0C6E4F; --accent-deep: #095741; --on-accent: #FFFFFF;
+  --danger: #BE3E26; --gold: #A97B14; --sheet: #FFFFFF;
+  --chip: #F0EADA; --nav: #FFFFFF;
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+  background: var(--paper); color: var(--ink);
+  max-width: 430px; margin: 0 auto; min-height: 560px;
+  direction: rtl; text-align: right; font-size: 15px; line-height: 1.7;
+}
+html[data-theme="dark"] .demowrap {
+  --paper: #16120D; --ink: #F2EDE1; --muted: #A89A83; --line: #2E2719;
+  --accent: #35B083; --accent-deep: #2A9A71; --on-accent: #06281D;
+  --danger: #E0654A; --gold: #D9A93B; --sheet: #211B12;
+  --chip: #2A2318; --nav: #1D1811;
+}
+.demowrap button { font-family: inherit; border: 0; background: none; color: inherit; cursor: pointer; }
+.demowrap button:active { transform: scale(0.96); }
+.demowrap input { font-family: inherit; }
+/* ===== header / hero ===== */
+.hero { background: var(--accent); color: var(--on-accent); padding: 20px 20px 18px; }
+.hero .app-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.hero .app-name { font-weight: 800; font-size: 19px; }
+.hero .month-pill { font-size: 12.5px; font-weight: 500; background: rgba(255,255,255,.16); padding: 5px 12px; border-radius: 999px; }
+html[data-theme="dark"] .hero .month-pill { background: rgba(0,0,0,.18); }
+.hero .bal-label { font-size: 13px; opacity: .82; }
+.hero .bal-num { font-size: 42px; font-weight: 900; letter-spacing: -0.5px; margin: 2px 0 0; }
+.hero .bal-num small { font-size: 16px; font-weight: 500; opacity: .85; }
+.hero .pnl { display: flex; margin-top: 14px; border-top: 1px solid rgba(255,255,255,.22); padding-top: 12px; }
+html[data-theme="dark"] .hero .pnl { border-top-color: rgba(0,0,0,.25); }
+.hero .pnl > div { flex: 1; }
+.hero .pnl > div + div { border-right: 1px solid rgba(255,255,255,.22); padding-right: 14px; }
+html[data-theme="dark"] .hero .pnl > div + div { border-right-color: rgba(0,0,0,.25); }
+.hero .pnl .k { font-size: 12px; opacity: .8; }
+.hero .pnl .v { font-size: 17px; font-weight: 700; }
+/* ===== sections ===== */
+.sec { padding: 18px 16px 0; }
+.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.sec-title { font-size: 14px; font-weight: 700; }
+.sec-link { font-size: 13px; color: var(--accent); font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; }
+/* rates strip */
+.rates { display: flex; gap: 8px; }
+.rate { flex: 1; background: var(--chip); border-radius: 12px; padding: 10px 12px; min-height: 44px; }
+.rate .rk { font-size: 11.5px; color: var(--muted); }
+.rate .rv { font-size: 14.5px; font-weight: 700; margin-top: 2px; }
+.rate .rv .up { color: var(--accent); font-size: 11px; }
+.rate .rv .down { color: var(--danger); font-size: 11px; }
+/* grouped list rows (not cards) */
+.rows { border-top: 1px solid var(--line); }
+.row { display: flex; align-items: center; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--line); min-height: 60px; width: 100%; text-align: right; }
+.row .dot { width: 40px; height: 40px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; }
+.row .dot svg { width: 20px; height: 20px; }
+.row .mid { flex: 1; min-width: 0; }
+.row .t { font-weight: 700; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row .s { font-size: 12.5px; color: var(--muted); }
+.row .amt { font-weight: 800; font-size: 15.5px; white-space: nowrap; }
+.amt.pos { color: var(--accent); } .amt.neg { color: var(--danger); }
+.day-head { font-size: 12.5px; color: var(--muted); font-weight: 500; padding: 14px 2px 2px; }
+/* filter chips */
+.chips { display: flex; gap: 8px; padding: 14px 16px 4px; }
+.chip { padding: 8px 18px; border-radius: 999px; background: var(--chip); font-size: 13.5px; font-weight: 500; min-height: 40px; color: var(--muted); }
+.chip.on { background: var(--ink); color: var(--paper); font-weight: 700; }
+/* accounts */
+.acct-total { padding: 4px 16px 0; font-size: 13px; color: var(--muted); }
+.acct-total b { color: var(--ink); font-size: 20px; }
+/* bottom nav */
+.tabbar { position: sticky; bottom: 0; display: flex; background: var(--nav); border-top: 1px solid var(--line); padding: 6px 4px calc(8px + env(safe-area-inset-bottom)); z-index: 30; }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; color: var(--muted); min-height: 56px; justify-content: center; font-weight: 500; }
+.tab svg { width: 23px; height: 23px; }
+.tab.on { color: var(--accent); font-weight: 700; }
+.fab { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: flex; align-items: center; justify-content: center; margin: -22px 6px 0; box-shadow: 0 6px 18px rgba(12,110,79,.35); flex: none; }
+.fab svg { width: 26px; height: 26px; }
+/* bottom sheet */
+.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .2s ease-out; z-index: 40; }
+.backdrop.show { opacity: 1; pointer-events: auto; }
+.sheet { position: fixed; left: 50%; transform: translate(-50%, 105%); bottom: 0; width: 100%; max-width: 430px; background: var(--sheet); border-radius: 20px 20px 0 0; z-index: 41; transition: transform .24s ease-out; max-height: 88%; overflow-y: auto; box-shadow: 0 -12px 40px rgba(0,0,0,.25); }
+.sheet.show { transform: translate(-50%, 0); }
+.sheet-in { padding: 8px 20px calc(20px + env(safe-area-inset-bottom)); }
+.grab { width: 40px; height: 4px; border-radius: 99px; background: var(--line); margin: 8px auto 14px; }
+.sheet h3 { font-size: 17px; font-weight: 800; margin-bottom: 14px; }
+.seg { display: flex; background: var(--chip); border-radius: 14px; padding: 4px; margin-bottom: 14px; }
+.seg button { flex: 1; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 14.5px; color: var(--muted); min-height: 48px; }
+.seg button.on-exp { background: var(--danger); color: #fff; }
+.seg button.on-inc { background: var(--accent); color: var(--on-accent); }
+.f-label { font-size: 13px; color: var(--muted); margin: 12px 0 6px; font-weight: 500; }
+.f-input { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 16px; background: transparent; color: var(--ink); min-height: 52px; }
+.f-input:focus { outline: none; border-color: var(--accent); }
+.amt-input { font-size: 26px !important; font-weight: 800; text-align: center; }
+.cat-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.cat { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); font-size: 13.5px; min-height: 42px; color: var(--muted); }
+.cat.on { border-color: var(--accent); color: var(--accent); font-weight: 700; background: transparent; }
+.btn-primary { width: 100%; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 16px; border-radius: 14px; padding: 14px; margin-top: 18px; min-height: 56px; }
+.btn-ghost { width: 100%; padding: 12px; margin-top: 6px; color: var(--muted); font-size: 14px; min-height: 48px; }
+/* toast */
+.toast { position: fixed; left: 50%; bottom: 96px; transform: translate(-50%, 20px); background: var(--ink); color: var(--paper); padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s ease-out, transform .2s ease-out; z-index: 60; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.creator { text-align: center; font-size: 11.5px; color: var(--muted); padding: 18px 0 8px; }
+.creator b { color: var(--accent); }
+.hidden { display: none !important; }
+.empty-note { text-align: center; color: var(--muted); font-size: 13.5px; padding: 26px 0; }
+</style>
+<div class="demowrap" dir="rtl" lang="fa">
+  <!-- ===== HOME ===== -->
+  <section data-pane="home">
+    <div class="hero">
+      <div class="app-row">
+        <div class="app-name">حسابداری</div>
+        <div class="month-pill">مهر ۱۴۰۳</div>
+      </div>
+      <div class="bal-label">مانده کل</div>
+      <div class="bal-num"><span id="heroBal">۲۲٬۹۰۰٬۰۰۰</span> <small>تومان</small></div>
+      <div class="pnl">
+        <div><div class="k">دخل مهر</div><div class="v" id="heroInc">۱۸٬۵۰۰٬۰۰۰</div></div>
+        <div><div class="k">خرج مهر</div><div class="v" id="heroExp">۱۱٬۲۰۰٬۰۰۰</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-head"><div class="sec-title">نرخ لحظه‌ای</div><div class="sec-link" style="font-size:12px;color:var(--muted)">به‌روزرسانی: ۱۰ دقیقه پیش</div></div>
+      <div class="rates">
+        <div class="rate"><div class="rk">طلای ۱۸ عیار (گرم)</div><div class="rv">۱۲٬۴۸۰٬۰۰۰ <span class="up">▲</span></div></div>
+        <div class="rate"><div class="rk">دلار آمریکا</div><div class="rv">۱۰۴٬۵۰۰ <span class="up">▲</span></div></div>
+        <div class="rate"><div class="rk">یورو</div><div class="rv">۱۱۲٬۳۰۰ <span class="down">▼</span></div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-head"><div class="sec-title">تراکنش‌های اخیر</div><button class="sec-link" data-goto="txs">مشاهده همه</button></div>
+      <div class="rows" id="recentRows"></div>
+    </div>
+    <div class="creator">طراحی دمو · <b>mmdGK</b></div>
+    <div style="height:14px"></div>
+  </section>
+
+  <!-- ===== TRANSACTIONS ===== -->
+  <section data-pane="txs" class="hidden">
+    <div class="sec" style="padding-top:16px">
+      <div class="sec-title" style="font-size:18px;font-weight:800">تراکنش‌ها</div>
+    </div>
+    <div class="chips" id="filterChips">
+      <button class="chip on" data-f="all">همه</button>
+      <button class="chip" data-f="exp">خرج</button>
+      <button class="chip" data-f="inc">دخل</button>
+    </div>
+    <div class="sec" id="txGroups" style="padding-top:2px"></div>
+    <div style="height:14px"></div>
+  </section>
+
+  <!-- ===== CREDITORS ===== -->
+  <section data-pane="creditors" class="hidden">
+    <div class="sec" style="padding-top:16px">
+      <div class="sec-title" style="font-size:18px;font-weight:800">طلبکارها</div>
+    </div>
+    <div class="acct-total">مجموع طلب‌ها<br><b id="credTotal">۸٬۵۰۰٬۰۰۰</b> <span style="font-size:13px">تومان</span></div>
+    <div class="sec"><div class="rows" id="credRows"></div></div>
+    <div class="sec"><button class="btn-primary" id="addCredBtn" style="margin-top:6px">ثبت طلبکار جدید</button></div>
+    <div style="height:14px"></div>
+  </section>
+
+  <!-- ===== ACCOUNTS ===== -->
+  <section data-pane="accounts" class="hidden">
+    <div class="sec" style="padding-top:16px">
+      <div class="sec-title" style="font-size:18px;font-weight:800">حساب‌ها</div>
+    </div>
+    <div class="acct-total">جمع موجودی<br><b id="acctTotal">۲۲٬۹۰۰٬۰۰۰</b> <span style="font-size:13px">تومان</span></div>
+    <div class="sec"><div class="rows" id="acctRows"></div></div>
+    <div class="sec"><button class="btn-ghost" style="border:1.5px solid var(--line);border-radius:14px">مدیریت حساب‌ها</button></div>
+    <div style="height:14px"></div>
+  </section>
+
+  <!-- ===== TAB BAR ===== -->
+  <nav class="tabbar">
+    <button class="tab on" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>خانه</button>
+    <button class="tab" data-tab="txs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.2"/><circle cx="3.5" cy="12" r="1.2"/><circle cx="3.5" cy="18" r="1.2"/></svg>تراکنش‌ها</button>
+    <button class="fab" id="fabAdd" aria-label="ثبت تراکنش"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="tab" data-tab="creditors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.6-3.4 2.8-5 5.5-5s4.9 1.6 5.5 5"/><path d="M16 4.5a3.2 3.2 0 0 1 0 7M17.5 15.2c1.7.7 2.8 2.3 3 4.8"/></svg>طلبکارها</button>
+    <button class="tab" data-tab="accounts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>حساب‌ها</button>
+  </nav>
+
+  <!-- ===== ADD SHEET ===== -->
+  <div class="backdrop" id="backdrop"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-label="ثبت تراکنش">
+    <div class="sheet-in">
+      <div class="grab"></div>
+      <h3>تراکنش جدید</h3>
+      <div class="seg" id="typeSeg">
+        <button data-type="exp" class="on-exp">خرج</button>
+        <button data-type="inc">دخل</button>
+      </div>
+      <div class="f-label">مبلغ (تومان)</div>
+      <input class="f-input amt-input" id="fAmt" inputmode="numeric" placeholder="۰">
+      <div class="f-label">دسته</div>
+      <div class="cat-row" id="catRow">
+        <button class="cat on">مصالح</button><button class="cat">خوراک</button><button class="cat">حمل‌ونقل</button><button class="cat">دستمزد</button><button class="cat">قبوض</button><button class="cat">سایر</button>
+      </div>
+      <div class="f-label">حساب</div>
+      <div class="cat-row" id="acctPick">
+        <button class="cat on">ملت</button><button class="cat">صادرات</button><button class="cat">نقدی</button>
+      </div>
+      <div class="f-label">توضیح</div>
+      <input class="f-input" id="fNote" placeholder="مثلاً خرید ورق کناف">
+      <button class="btn-primary" id="saveTx">ثبت تراکنش</button>
+      <button class="btn-ghost" id="closeSheet">انصراف</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+<script>
+(function(){
+  var FA='۰۱۲۳۴۵۶۷۸۹';
+  function faD(s){return String(s).replace(/[0-9]/g,function(d){return FA[+d];});}
+  function fmt(n){return faD(Number(n).toLocaleString('en-US').replace(/,/g,'٬'));}
+  function parseFa(s){return parseInt(String(s).replace(/[۰-۹]/g,function(d){return FA.indexOf(d);}).replace(/[^0-9]/g,''),10)||0;}
+
+  var ICONS={
+    inc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    exp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>',
+    user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c.7-3.6 3.2-5.4 6.5-5.4s5.8 1.8 6.5 5.4"/></svg>',
+    bank:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>',
+    cash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="7" width="18" height="11" rx="2"/><circle cx="12" cy="12.5" r="2.6"/></svg>'
+  };
+
+  var seedTxs=[
+    {t:'حقوق ماهانه',s:'دخل · ملت · امروز',amt:18500000,kind:'inc',day:'امروز'},
+    {t:'خرید ورق کناف',s:'مصالح · ملت · امروز',amt:3200000,kind:'exp',day:'امروز'},
+    {t:'دستمزد شاگرد',s:'دستمزد · نقدی · دیروز',amt:800000,kind:'exp',day:'دیروز'},
+    {t:'بنزین',s:'حمل‌ونقل · نقدی · دیروز',amt:450000,kind:'exp',day:'دیروز'},
+    {t:'ناهار کارگاه',s:'خوراک · نقدی · ۱۰ مهر',amt:380000,kind:'exp',day:'۱۰ مهر'},
+    {t:'فروش ضایعات آهن',s:'دخل · نقدی · ۹ مهر',amt:650000,kind:'inc',day:'۹ مهر'},
+    {t:'قبض برق کارگاه',s:'قبوض · صادرات · ۸ مهر',amt:290000,kind:'exp',day:'۸ مهر'},
+    {t:'پیش‌پرداخت پروژه سعادت‌آباد',s:'دخل · صادرات · ۷ مهر',amt:6000000,kind:'inc',day:'۷ مهر'}
+  ];
+  var seedCreditors=[
+    {n:'مصطفی کریمی',s:'بابت قرض · ۸ مهر',amt:5000000},
+    {n:'علی رضایی',s:'بابت مصالح · ۵ مهر',amt:2300000},
+    {n:'حسن محمدی',s:'بابت قرض · ۲ مهر',amt:1200000}
+  ];
+  var seedAccts=[
+    {n:'ملت',s:'حساب بانکی',amt:8450000,icon:'bank'},
+    {n:'صادرات',s:'حساب بانکی',amt:12300000,icon:'bank'},
+    {n:'نقدی',s:'پول نقد',amt:2150000,icon:'cash'}
+  ];
+
+  var defaults={tab:'home',filter:'all',txs:seedTxs,creditors:seedCreditors,accts:seedAccts,
+    sheet:false,formType:'exp',formCat:'مصالح',formAcct:'ملت'};
+  var S=defaults;
+  try{ S=window.hatchWidget.getState(defaults)||defaults; }catch(e){ S=defaults; }
+  function set(patch){ S=Object.assign({},S,patch); try{window.hatchWidget.setState(S);}catch(e){} render(); }
+  window.addEventListener('hatch-widget-state',function(e){ S=e.detail.state||S; render(); });
+
+  function txRow(x){
+    var pos=x.kind==='inc';
+    var bg=pos?'rgba(12,110,79,.12)':'rgba(190,62,38,.12)';
+    var fg=pos?'var(--accent)':'var(--danger)';
+    return '<div class="row"><div class="dot" style="background:'+bg+';color:'+fg+'">'+ICONS[x.kind]+'</div>'+
+      '<div class="mid"><div class="t">'+x.t+'</div><div class="s">'+x.s+'</div></div>'+
+      '<div class="amt '+(pos?'pos':'neg')+'">'+(pos?'+':'−')+fmt(x.amt)+'</div></div>';
+  }
+  function renderHome(){
+    var el=document.getElementById('recentRows');
+    el.innerHTML=S.txs.slice(0,5).map(txRow).join('');
+    var inc=S.txs.filter(function(x){return x.kind==='inc';}).reduce(function(a,x){return a+x.amt;},0);
+    var exp=S.txs.filter(function(x){return x.kind==='exp';}).reduce(function(a,x){return a+x.amt;},0);
+    document.getElementById('heroInc').textContent=fmt(inc);
+    document.getElementById('heroExp').textContent=fmt(exp);
+    var bal=S.accts.reduce(function(a,x){return a+x.amt;},0);
+    document.getElementById('heroBal').textContent=fmt(bal);
+  }
+  function renderTxs(){
+    var list=S.txs.filter(function(x){return S.filter==='all'||x.kind===S.filter;});
+    var groups={},order=[];
+    list.forEach(function(x){ if(!groups[x.day]){groups[x.day]=[];order.push(x.day);} groups[x.day].push(x); });
+    var html=order.map(function(d){
+      return '<div class="day-head">'+d+'</div><div class="rows">'+groups[d].map(txRow).join('')+'</div>';
+    }).join('');
+    document.getElementById('txGroups').innerHTML=html||'<div class="empty-note">تراکنشی نیست</div>';
+    document.querySelectorAll('#filterChips .chip').forEach(function(c){
+      c.classList.toggle('on',c.dataset.f===S.filter);
+    });
+  }
+  function renderCreditors(){
+    document.getElementById('credRows').innerHTML=S.creditors.map(function(c){
+      return '<div class="row"><div class="dot" style="background:rgba(169,123,20,.13);color:var(--gold)">'+ICONS.user+'</div>'+
+        '<div class="mid"><div class="t">'+c.n+'</div><div class="s">'+c.s+'</div></div>'+
+        '<div class="amt neg">'+fmt(c.amt)+'</div></div>';
+    }).join('');
+    var tot=S.creditors.reduce(function(a,c){return a+c.amt;},0);
+    document.getElementById('credTotal').textContent=fmt(tot);
+  }
+  function renderAccts(){
+    document.getElementById('acctRows').innerHTML=S.accts.map(function(a){
+      return '<div class="row"><div class="dot" style="background:var(--chip);color:var(--accent)">'+ICONS[a.icon]+'</div>'+
+        '<div class="mid"><div class="t">'+a.n+'</div><div class="s">'+a.s+'</div></div>'+
+        '<div class="amt">'+fmt(a.amt)+'</div></div>';
+    }).join('');
+    document.getElementById('acctTotal').textContent=fmt(S.accts.reduce(function(x,a){return x+a.amt;},0));
+  }
+  function renderSheet(){
+    document.getElementById('sheet').classList.toggle('show',!!S.sheet);
+    document.getElementById('backdrop').classList.toggle('show',!!S.sheet);
+    var seg=document.querySelectorAll('#typeSeg button');
+    seg[0].className=S.formType==='exp'?'on-exp':'';
+    seg[1].className=S.formType==='inc'?'on-inc':'';
+    document.querySelectorAll('#catRow .cat').forEach(function(c){c.classList.toggle('on',c.textContent===S.formCat);});
+    document.querySelectorAll('#acctPick .cat').forEach(function(c){c.classList.toggle('on',c.textContent===S.formAcct);});
+  }
+  function render(){
+    document.querySelectorAll('[data-pane]').forEach(function(p){p.classList.toggle('hidden',p.dataset.pane!==S.tab);});
+    document.querySelectorAll('.tab[data-tab]').forEach(function(t){t.classList.toggle('on',t.dataset.tab===S.tab);});
+    renderHome(); renderTxs(); renderCreditors(); renderAccts(); renderSheet();
+  }
+
+  var toastT=null;
+  function toast(msg){
+    var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove('show');},2200);
+  }
+
+  document.querySelector('.tabbar').addEventListener('click',function(e){
+    var b=e.target.closest('[data-tab]'); if(b){set({tab:b.dataset.tab});return;}
+    var g=e.target.closest('[data-goto]'); if(g){set({tab:g.dataset.goto});}
+  });
+  document.addEventListener('click',function(e){
+    var g=e.target.closest('[data-goto]'); if(g){set({tab:g.dataset.goto});}
+  });
+  document.getElementById('fabAdd').addEventListener('click',function(){set({sheet:true});});
+  document.getElementById('closeSheet').addEventListener('click',function(){set({sheet:false});});
+  document.getElementById('backdrop').addEventListener('click',function(){set({sheet:false});});
+  document.getElementById('typeSeg').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(b)set({formType:b.dataset.type});
+  });
+  document.getElementById('catRow').addEventListener('click',function(e){
+    var b=e.target.closest('.cat'); if(b)set({formCat:b.textContent});
+  });
+  document.getElementById('acctPick').addEventListener('click',function(e){
+    var b=e.target.closest('.cat'); if(b)set({formAcct:b.textContent});
+  });
+  document.getElementById('filterChips').addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(b)set({filter:b.dataset.f});
+  });
+  document.getElementById('saveTx').addEventListener('click',function(){
+    var amt=parseFa(document.getElementById('fAmt').value);
+    if(!amt){toast('مبلغ را وارد کن');return;}
+    var note=document.getElementById('fNote').value.trim()||S.formCat;
+    var tx={t:note,s:(S.formType==='inc'?'دخل':'خرج')+' · '+S.formAcct+' · امروز',amt:amt,kind:S.formType,day:'امروز'};
+    var txs=[tx].concat(S.txs);
+    var accts=S.accts.map(function(a){
+      if(a.n!==S.formAcct)return a;
+      return {n:a.n,s:a.s,icon:a.icon,amt:a.amt+(S.formType==='inc'?amt:-amt)};
+    });
+    document.getElementById('fAmt').value='';document.getElementById('fNote').value='';
+    set({txs:txs,accts:accts,sheet:false,tab:'home'});
+    toast('تراکنش ثبت شد');
+  });
+  document.getElementById('addCredBtn').addEventListener('click',function(){toast('دمو: فرم ثبت طلبکار');});
+
+  render();
+})();
+</script>
+
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js');});}</script>
+</body>
+</html>
